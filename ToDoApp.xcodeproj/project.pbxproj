@@ -14,6 +14,7 @@
 		770223201FFCAEF700DACC7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7702231F1FFCAEF700DACC7B /* Assets.xcassets */; };
 		770223231FFCAEF700DACC7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 770223211FFCAEF700DACC7B /* LaunchScreen.storyboard */; };
 		7702232B1FFCC0E200DACC7B /* DetailsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702232A1FFCC0E200DACC7B /* DetailsViewViewController.swift */; };
+		7702232D1FFD253600DACC7B /* TaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702232C1FFD253600DACC7B /* TaskViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		770223221FFCAEF700DACC7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		770223241FFCAEF700DACC7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7702232A1FFCC0E200DACC7B /* DetailsViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewViewController.swift; sourceTree = "<group>"; };
+		7702232C1FFD253600DACC7B /* TaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				770223241FFCAEF700DACC7B /* Info.plist */,
 				7702231C1FFCAEF700DACC7B /* ToDoApp.xcdatamodeld */,
 				7702232A1FFCC0E200DACC7B /* DetailsViewViewController.swift */,
+				7702232C1FFD253600DACC7B /* TaskViewCell.swift */,
 			);
 			path = ToDoApp;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			files = (
 				770223181FFCAEF700DACC7B /* ViewController.swift in Sources */,
 				7702231E1FFCAEF700DACC7B /* ToDoApp.xcdatamodeld in Sources */,
+				7702232D1FFD253600DACC7B /* TaskViewCell.swift in Sources */,
 				7702232B1FFCC0E200DACC7B /* DetailsViewViewController.swift in Sources */,
 				770223161FFCAEF700DACC7B /* AppDelegate.swift in Sources */,
 			);
