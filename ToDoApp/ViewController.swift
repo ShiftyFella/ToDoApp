@@ -6,7 +6,7 @@
 // Contributors: #300964200 - Viktor Bilyk
 //               #300965775 - Timofei Sopin
 //
-// Ver: 0.12 - Added saving and display of data from CoreData DB
+// Ver: 0.13 - Added update, delete and show detail info for task
 // File: Main Screen View Controller handler
 
 import UIKit
@@ -15,6 +15,10 @@ import CoreData
 class ViewController: UITableViewController {
 
     var tasksList: [NSManagedObject] = []
+    
+    var selectedTask = NSManagedObject()
+    
+    var selectedTaskIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,6 +113,52 @@ class ViewController: UITableViewController {
         //assign cell text
         cell.textLabel?.text = tasksList[indexPath.row].value(forKey: "name") as? String
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTask = tasksList[indexPath.row]
+        selectedTaskIndex = indexPath.row
+        self.performSegue(withIdentifier: "DisplayTaskInfo", sender: nil)
+    }
+    
+    @IBAction func unwindFromDetailsVC(_ sender: UIStoryboardSegue) {
+        if sender.source is DetailsViewViewController {
+            if let senderVC = sender.source as? DetailsViewViewController {
+                if senderVC.action_type == "Delete" {
+                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                    
+                    let managedContext = appDelegate.persistentContainer.viewContext
+                    
+                    managedContext.delete(tasksList[selectedTaskIndex!])
+                    do {
+                        try managedContext.save()
+                    } catch let error as NSError {
+                        print("Saving error: \(error)")
+                    }
+                    tasksList.remove(at: selectedTaskIndex!)
+                    
+                }
+                if senderVC.action_type == "Save" {
+                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                    
+                    let managedContext = appDelegate.persistentContainer.viewContext
+                    
+                    tasksList[selectedTaskIndex!] = senderVC.taskInfo!
+                    do {
+                        try managedContext.save()
+                    } catch let error as NSError {
+                        print("Saving error: \(error)")
+                    }
+                    
+                }
+            }
+            tableView.reloadData()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! DetailsViewViewController
+        vc.taskInfo = selectedTask
     }
 
 
