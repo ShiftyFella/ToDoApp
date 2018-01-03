@@ -6,7 +6,7 @@
 // Contributors: #300964200 - Viktor Bilyk
 //               #300965775 - Timofei Sopin
 //
-// Ver: 0.15 - Added Custom Cell and it's delegates skeleton
+// Ver: 0.17 - Added Custom Cell Edit and Delete action handlers
 // File: Main Screen View Controller handler
 
 import UIKit
@@ -18,11 +18,30 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
     }
     
     func taskViewCellEditBtnTapped(_ sender: TaskViewCell) {
-        //
+        guard let tapIndexPath = tableView.indexPath(for: sender) else { return}
+        
+        selectedTask = tasksList[tapIndexPath.row]
+        selectedTaskIndex = tapIndexPath.row
+        self.performSegue(withIdentifier: "DisplayTaskInfo", sender: nil)
     }
     
     func taskViewCellDelBtnTapped(_ sender: TaskViewCell) {
-        //
+        guard let tapIndexPath = tableView.indexPath(for: sender) else { return}
+        selectedTaskIndex = tapIndexPath.row
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        managedContext.delete(tasksList[selectedTaskIndex!])
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Saving error: \(error)")
+        }
+        tasksList.remove(at: selectedTaskIndex!)
+        
+        tableView.reloadData()
     }
     
 
