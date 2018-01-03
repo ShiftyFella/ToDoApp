@@ -56,6 +56,8 @@
                                             <rect key="frame" x="16" y="11" width="44" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="44" id="BMk-o1-3VA"/>
+                                                <constraint firstAttribute="height" constant="44" id="Z6f-lQ-nEw"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="yKB-zS-lTE"/>
                                             </constraints>
                                             <state key="normal" backgroundImage="Oval"/>
                                             <connections>
@@ -150,8 +152,8 @@
                                 <color key="textColor" red="0.45098039215686275" green="0.45098039215686275" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="highlightedColor" red="0.45098039215686275" green="0.45098039215686275" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSU-W5-6Tn">
-                                <rect key="frame" x="313" y="69" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSU-W5-6Tn">
+                                <rect key="frame" x="325" y="69" width="34" height="30"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <segue destination="qbp-Rx-eXR" kind="unwind" unwindAction="unwindFromDetailsVC:" id="RtG-gm-j2X"/>
@@ -200,12 +202,14 @@
                             <constraint firstItem="AXG-0h-9kg" firstAttribute="leading" secondItem="ICv-OD-uyC" secondAttribute="leading" id="aqS-Mp-i35"/>
                             <constraint firstItem="6BZ-Xb-2HX" firstAttribute="leading" secondItem="05j-kg-AWE" secondAttribute="leadingMargin" id="az8-8p-LUp"/>
                             <constraint firstItem="AXG-0h-9kg" firstAttribute="trailing" secondItem="05j-kg-AWE" secondAttribute="trailingMargin" id="bwt-bL-lVm"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6BZ-Xb-2HX" secondAttribute="trailingMargin" id="jja-7f-mAU"/>
                             <constraint firstItem="6BZ-Xb-2HX" firstAttribute="top" secondItem="V3f-oc-oNJ" secondAttribute="top" constant="59" id="nGq-Mt-3Ip"/>
                             <constraint firstItem="RNL-Gb-wc8" firstAttribute="top" secondItem="ICv-OD-uyC" secondAttribute="bottom" constant="10" id="opd-K8-NFC"/>
                             <constraint firstItem="AXG-0h-9kg" firstAttribute="top" secondItem="6BZ-Xb-2HX" secondAttribute="bottom" constant="10" id="pzc-ar-oQr"/>
                             <constraint firstItem="ICv-OD-uyC" firstAttribute="top" secondItem="AXG-0h-9kg" secondAttribute="bottom" constant="17" id="r5H-ci-ROf"/>
                             <constraint firstItem="RNL-Gb-wc8" firstAttribute="leading" secondItem="dFO-Gp-MtB" secondAttribute="leading" id="uLw-jc-N4i"/>
                             <constraint firstItem="ICv-OD-uyC" firstAttribute="leading" secondItem="RNL-Gb-wc8" secondAttribute="leading" id="v1P-lr-bL0"/>
+                            <constraint firstItem="cSU-W5-6Tn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="05j-kg-AWE" secondAttribute="leading" constant="20" symbolic="YES" id="vaH-IU-0lk"/>
                             <constraint firstItem="AXG-0h-9kg" firstAttribute="top" secondItem="cSU-W5-6Tn" secondAttribute="bottom" constant="8" symbolic="YES" id="zfB-Hg-Nw7"/>
                             <constraint firstItem="dFO-Gp-MtB" firstAttribute="leading" secondItem="ibU-D3-YSB" secondAttribute="leading" id="zqA-s8-jh5"/>
                         </constraints>
