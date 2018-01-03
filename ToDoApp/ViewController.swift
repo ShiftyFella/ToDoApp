@@ -43,7 +43,8 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
         
         tableView.reloadData()
     }
-    
+    let cellReuseIdentifier = "cell"
+    let cellSpacingHeight: CGFloat = 5
 
     var tasksList: [NSManagedObject] = []
     
@@ -136,6 +137,8 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+ 
+        
         return tasksList.count
     }
     
@@ -144,6 +147,13 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
         //assign cell text
         cell.taskName.text = tasksList[indexPath.row].value(forKey: "name") as? String
         cell.delegate = self
+        
+        // add border and color
+        cell.backgroundColor = UIColor.white
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 16
+        cell.clipsToBounds = true
         return cell
     }
    
@@ -191,6 +201,26 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! DetailsViewViewController
         vc.taskInfo = selectedTask
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            // delete item at indexPath
+            self.tasksList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            print(self.tasksList)
+        }
+        
+        let share = UITableViewRowAction(style: .default, title: "Share") { (action, indexPath) in
+            // share item at indexPath
+            print("I want to share: \(self.tasksList[indexPath.row])")
+        }
+        
+        share.backgroundColor = UIColor.lightGray
+        
+        return [delete, share]
+        
     }
 
 

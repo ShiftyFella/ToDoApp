@@ -21,6 +21,10 @@ class DetailsViewViewController: UIViewController {
     @IBOutlet weak var taskName: UITextField!
     @IBOutlet weak var taskNote: UITextView!
     
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        taskInfo?.setValue(taskName.text, forKey: "name")
+        taskInfo?.setValue(taskNote.text, forKey: "note")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,11 +36,11 @@ class DetailsViewViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func updateTask(_ sender: UIButton) {
-        taskInfo?.setValue(taskName.text, forKey: "name")
-        taskInfo?.setValue(taskNote.text, forKey: "note")
-
-    }
+//    @IBAction func updateTask(_ sender: UIButton) {
+//        taskInfo?.setValue(taskName.text, forKey: "name")
+//        taskInfo?.setValue(taskNote.text, forKey: "note")
+//
+//    }
     @IBAction func deleteTask(_ sender: UIButton) {
         //
     }
