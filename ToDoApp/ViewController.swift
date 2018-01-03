@@ -6,13 +6,25 @@
 // Contributors: #300964200 - Viktor Bilyk
 //               #300965775 - Timofei Sopin
 //
-// Ver: 0.13 - Added update, delete and show detail info for task
+// Ver: 0.15 - Added Custom Cell and it's delegates skeleton
 // File: Main Screen View Controller handler
 
 import UIKit
 import CoreData
 
-class ViewController: UITableViewController {
+class ViewController: UITableViewController, TaskViewCellDelegate {
+    func taskViewCellChkBoxTapped(_ sender: TaskViewCell) {
+        //
+    }
+    
+    func taskViewCellEditBtnTapped(_ sender: TaskViewCell) {
+        //
+    }
+    
+    func taskViewCellDelBtnTapped(_ sender: TaskViewCell) {
+        //
+    }
+    
 
     var tasksList: [NSManagedObject] = []
     
@@ -109,12 +121,13 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")! as UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")! as! TaskViewCell
         //assign cell text
-        cell.textLabel?.text = tasksList[indexPath.row].value(forKey: "name") as? String
+        cell.taskName.text = tasksList[indexPath.row].value(forKey: "name") as? String
+        cell.delegate = self
         return cell
     }
-    
+   
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedTask = tasksList[indexPath.row]
         selectedTaskIndex = indexPath.row

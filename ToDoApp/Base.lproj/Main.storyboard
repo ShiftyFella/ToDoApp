@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="UZL-ln-QPU">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="UZL-ln-QPU" customClass="TaskViewCell" customModule="ToDoApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UZL-ln-QPU" id="vQ4-1n-PRI">
@@ -37,19 +37,34 @@
                                             <rect key="frame" x="320" y="6" width="46" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="del"/>
+                                            <connections>
+                                                <action selector="delBtnTap:" destination="UZL-ln-QPU" eventType="touchUpInside" id="cLz-T9-MJX"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhl-yL-UwS">
                                             <rect key="frame" x="271" y="7" width="46" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="edt"/>
+                                            <connections>
+                                                <action selector="edtBtnTap:" destination="UZL-ln-QPU" eventType="touchUpInside" id="Te2-dS-ygc"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QcQ-Tx-I6D">
                                             <rect key="frame" x="16" y="6" width="46" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="tap"/>
+                                            <connections>
+                                                <action selector="chkBoxTap:" destination="UZL-ln-QPU" eventType="touchUpInside" id="34S-Vb-vDO"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="taskDelBtn" destination="cIG-sN-qtq" id="mvd-uS-uQS"/>
+                                    <outlet property="taskDoneCheckBox" destination="QcQ-Tx-I6D" id="Ve5-4L-nMf"/>
+                                    <outlet property="taskEditBtn" destination="fhl-yL-UwS" id="Nwi-yF-xA2"/>
+                                    <outlet property="taskName" destination="Oje-dO-AcI" id="9kt-ff-S4M"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
