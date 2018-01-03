@@ -6,7 +6,7 @@
 // Contributors: #300964200 - Viktor Bilyk
 //               #300965775 - Timofei Sopin
 //
-// Ver: 0.17 - Added Custom Cell Edit and Delete action handlers
+// Ver: 0.19 - Added task complete logic
 // File: Main Screen View Controller handler
 
 import UIKit
@@ -15,14 +15,31 @@ import CoreData
 class ViewController: UITableViewController, TaskViewCellDelegate {
     func taskViewCellChkBoxTapped(_ sender: TaskViewCell) {
         //
+        guard let tapIndexPath = tableView.indexPath(for: sender) else { return}
+        selectedTaskIndex = tapIndexPath.row
+        let isDone = tasksList[selectedTaskIndex!].value(forKey: "isDone") as! Bool
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        tasksList[selectedTaskIndex!].setValue(!isDone, forKey: "isDone")
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Saving error: \(error)")
+        }
+        
+        tableView.reloadData()
     }
     
     func taskViewCellEditBtnTapped(_ sender: TaskViewCell) {
         guard let tapIndexPath = tableView.indexPath(for: sender) else { return}
-        
-        selectedTask = tasksList[tapIndexPath.row]
         selectedTaskIndex = tapIndexPath.row
-        self.performSegue(withIdentifier: "DisplayTaskInfo", sender: nil)
+        let isDone = tasksList[selectedTaskIndex!].value(forKey: "isDone") as! Bool
+        if !isDone {
+            selectedTask = tasksList[selectedTaskIndex!]
+            self.performSegue(withIdentifier: "DisplayTaskInfo", sender: nil)
+        }
     }
     
     func taskViewCellDelBtnTapped(_ sender: TaskViewCell) {
@@ -141,8 +158,10 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")! as! TaskViewCell
+        let isDone = tasksList[indexPath.row].value(forKey: "isDone") as! Bool
         //assign cell text
         cell.taskName.text = tasksList[indexPath.row].value(forKey: "name") as? String
+        cell.taskName.textColor = isDone ? UIColor.darkGray : UIColor.black
         cell.delegate = self
         return cell
     }
