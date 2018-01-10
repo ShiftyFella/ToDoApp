@@ -11,8 +11,9 @@
 
 import UIKit
 import CoreData
+import CoreGraphics
 
-class ViewController: UITableViewController, TaskViewCellDelegate {
+class ViewController: UITableViewController, TaskViewCellDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     func taskViewCellChkBoxTapped(_ sender: TaskViewCell) {
         //
         guard let tapIndexPath = tableView.indexPath(for: sender) else { return}
@@ -68,10 +69,73 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
     
     var selectedTaskIndex: Int?
     var categoryColor = ["Home": UIColor.blue, "Work": UIColor.brown, "Groceries": UIColor.green, "Family": UIColor.red]
+    var sortByList = ["Name", "Date", "Category"]
+    var selectedSortType: Int?
+    
+    var sortPicker = UIPickerView()
+    
+    @IBOutlet weak var sortItem: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sortPicker.delegate = self
+        sortPicker.dataSource = self
+        sortItem.inputView = sortPicker
+        sortItem.placeholder = "Sort by: "
+        selectedSortType = -1
         
+    }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.sortByList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.sortByList[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.sortItem.text = "Sort by: " + sortByList[row]
+        selectedSortType = row
+        self.sortItem.resignFirstResponder()
+        sortData()
+    }
+    
+    func sortData () {
+        //
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Task")
+        
+        if (selectedSortType! != -1) {
+            var sortDescriptor = NSSortDescriptor()
+            
+            switch selectedSortType! as Int {
+            case 0:
+                sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+            case 1:
+                sortDescriptor = NSSortDescriptor(key: "createdAt", ascending: true)
+            case 2:
+                sortDescriptor = NSSortDescriptor(key: "category", ascending: true)
+            default:
+                break
+            }
+            
+            fetchRequest.sortDescriptors = [sortDescriptor]
+        }
+        
+        do {
+            tasksList = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Fetch error: \(error)")
+        }
+        
+        tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
         //fetch data from db when view loads
@@ -82,6 +146,23 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
         let managedContext = appDelegate.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Task")
+        
+        if (selectedSortType! != -1) {
+            var sortDescriptor = NSSortDescriptor()
+            
+            switch selectedSortType! as Int {
+            case 0:
+                sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+            case 1:
+                sortDescriptor = NSSortDescriptor(key: "createdAt", ascending: true)
+            case 2:
+                sortDescriptor = NSSortDescriptor(key: "category", ascending: true)
+            default:
+                break
+            }
+            
+            fetchRequest.sortDescriptors = [sortDescriptor]
+        }
         
         do {
             tasksList = try managedContext.fetch(fetchRequest)
@@ -139,6 +220,10 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
         
         let task = NSManagedObject(entity: entity, insertInto: managedContext)
         
+        let date = Date()
+        
+        task.setValue(date, forKey: "createdAt")
+        
         task.setValue(name, forKey: "name")
         
         do {
@@ -148,6 +233,14 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
             print("Saving error: \(error)")
         }
         
+    }
+    
+    func customDateFormat(date: Date) -> String{
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let dateString = dateFormatter.string(from: date as Date)
+        
+        return dateString
     }
     
     //tableView stuff:
@@ -164,14 +257,19 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
         cell.taskName.text = tasksList[indexPath.row].value(forKey: "name") as? String
         cell.taskName.textColor = isDone ? UIColor.darkGray : UIColor.black
         cell.taskCategory.backgroundColor = categoryColor[tasksList[indexPath.row].value(forKey: "category") as! String]
+        cell.taskDate.text = customDateFormat(date: tasksList[indexPath.row].value(forKey: "createdAt") as! Date)
+        cell.selectionStyle = .none
         cell.delegate = self
         return cell
     }
    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTask = tasksList[indexPath.row]
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedTaskIndex = indexPath.row
-        self.performSegue(withIdentifier: "DisplayTaskInfo", sender: nil)
+        let isDone = tasksList[selectedTaskIndex!].value(forKey: "isDone") as! Bool
+        if !isDone {
+            selectedTask = tasksList[selectedTaskIndex!]
+            self.performSegue(withIdentifier: "DisplayTaskInfo", sender: nil)
+        }
     }
     
     @IBAction func unwindFromDetailsVC(_ sender: UIStoryboardSegue) {

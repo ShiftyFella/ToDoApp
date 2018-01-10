@@ -24,6 +24,7 @@ class TaskViewCell: UITableViewCell {
     @IBOutlet weak var taskEditBtn: UIButton!
     @IBOutlet weak var taskDelBtn: UIButton!
     @IBOutlet weak var taskCategory: UIButton!
+    @IBOutlet weak var taskDate: UILabel!
     weak var delegate: TaskViewCellDelegate?
 
     override func awakeFromNib() {
