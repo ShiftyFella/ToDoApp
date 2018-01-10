@@ -13,40 +13,61 @@
 import UIKit
 import CoreData
 
-class DetailsViewViewController: UIViewController {
+class DetailsViewViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.categoryList.count
+    }
     
     var taskInfo: NSManagedObject?
     var action_type: String!
+    var categoryList = ["Home", "Work", "Groceries", "Family"]
 
     @IBOutlet weak var taskName: UITextField!
     @IBOutlet weak var taskNote: UITextView!
-    
+    @IBOutlet weak var taskCategory: UITextField!
+    var taskCategoryPicker = UIPickerView()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         taskName.text = taskInfo?.value(forKey: "name") as? String
         taskNote.text = taskInfo?.value(forKey: "note") as? String
+        taskCategory.text = taskInfo?.value(forKey: "category") as? String
+        
+        taskCategoryPicker.delegate = self
+        taskCategoryPicker.dataSource = self
+        
+        taskCategory.inputView = taskCategoryPicker
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func updateTask(_ sender: UIButton) {
-        taskInfo?.setValue(taskName.text, forKey: "name")
-        taskInfo?.setValue(taskNote.text, forKey: "note")
-
-    }
-    @IBAction func deleteTask(_ sender: UIButton) {
-        //
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //
-        let actionBtn = sender as? UIButton
-        action_type = actionBtn?.currentTitle
+        let actionBtn = sender as? UIBarButtonItem
+        if (actionBtn?.title == "Save") {
+            taskInfo?.setValue(taskName.text, forKey: "name")
+            taskInfo?.setValue(taskNote.text, forKey: "note")
+            taskInfo?.setValue(taskCategory.text, forKey: "category")
+            action_type = "Save"
+        }
     }
-
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.categoryList[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.taskCategory.text = categoryList[row]
+        self.taskCategory.resignFirstResponder()
+    }
+    
     /*
     // MARK: - Navigation
 

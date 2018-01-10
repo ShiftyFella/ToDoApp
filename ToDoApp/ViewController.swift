@@ -67,6 +67,7 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
     var selectedTask = NSManagedObject()
     
     var selectedTaskIndex: Int?
+    var categoryColor = ["Home": UIColor.blue, "Work": UIColor.brown, "Groceries": UIColor.green, "Family": UIColor.red]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,6 +163,7 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
         //assign cell text
         cell.taskName.text = tasksList[indexPath.row].value(forKey: "name") as? String
         cell.taskName.textColor = isDone ? UIColor.darkGray : UIColor.black
+        cell.taskCategory.backgroundColor = categoryColor[tasksList[indexPath.row].value(forKey: "category") as! String]
         cell.delegate = self
         return cell
     }
@@ -175,20 +177,6 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
     @IBAction func unwindFromDetailsVC(_ sender: UIStoryboardSegue) {
         if sender.source is DetailsViewViewController {
             if let senderVC = sender.source as? DetailsViewViewController {
-                if senderVC.action_type == "Delete" {
-                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                    
-                    let managedContext = appDelegate.persistentContainer.viewContext
-                    
-                    managedContext.delete(tasksList[selectedTaskIndex!])
-                    do {
-                        try managedContext.save()
-                    } catch let error as NSError {
-                        print("Saving error: \(error)")
-                    }
-                    tasksList.remove(at: selectedTaskIndex!)
-                    
-                }
                 if senderVC.action_type == "Save" {
                     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
                     
@@ -202,8 +190,8 @@ class ViewController: UITableViewController, TaskViewCellDelegate {
                     }
                     
                 }
+                tableView.reloadData()
             }
-            tableView.reloadData()
         }
     }
     

@@ -23,12 +23,13 @@ class TaskViewCell: UITableViewCell {
     @IBOutlet weak var taskName: UILabel!
     @IBOutlet weak var taskEditBtn: UIButton!
     @IBOutlet weak var taskDelBtn: UIButton!
-    
+    @IBOutlet weak var taskCategory: UIButton!
     weak var delegate: TaskViewCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.taskCategory.layer.cornerRadius = 15
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
