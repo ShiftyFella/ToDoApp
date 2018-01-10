@@ -258,6 +258,8 @@ class ViewController: UITableViewController, TaskViewCellDelegate, UIPickerViewD
         cell.taskName.textColor = isDone ? UIColor.darkGray : UIColor.black
         cell.taskCategory.backgroundColor = categoryColor[tasksList[indexPath.row].value(forKey: "category") as! String]
         cell.taskDate.text = customDateFormat(date: tasksList[indexPath.row].value(forKey: "createdAt") as! Date)
+        cell.taskDate.textColor = isDone ? UIColor.darkGray : UIColor.black
+        cell.taskDoneCheckBox.setImage(isDone ? #imageLiteral(resourceName: "chBoxChecked") : #imageLiteral(resourceName: "chBoxUnchecked"), for: .normal)
         cell.selectionStyle = .none
         cell.delegate = self
         return cell
