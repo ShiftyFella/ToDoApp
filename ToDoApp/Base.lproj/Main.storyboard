@@ -28,6 +28,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="7ba-fh-kc3">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ckv-Mx-Gex">
+                                    <rect key="frame" x="8" y="8" width="359" height="30"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="66" id="UZL-ln-QPU" customClass="TaskViewCell" customModule="ToDoApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="66"/>
@@ -95,6 +109,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="taskCategory" destination="ICx-v4-ZoR" id="jnL-v1-2ae"/>
+                                    <outlet property="taskDate" destination="wpl-OG-RER" id="N35-xP-KPb"/>
                                     <outlet property="taskDelBtn" destination="cIG-sN-qtq" id="mvd-uS-uQS"/>
                                     <outlet property="taskDoneCheckBox" destination="QcQ-Tx-I6D" id="Ve5-4L-nMf"/>
                                     <outlet property="taskEditBtn" destination="fhl-yL-UwS" id="Nwi-yF-xA2"/>
@@ -116,7 +132,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="ci0-fS-zfp" kind="showDetail" identifier="DisplayTaskInfo" action="showViewController:sender:" id="vuk-mB-JPV"/>
+                        <outlet property="sortItem" destination="ckv-Mx-Gex" id="JRf-P0-3Xr"/>
+                        <segue destination="ci0-fS-zfp" kind="show" identifier="DisplayTaskInfo" id="vuk-mB-JPV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pR8-hu-XaK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -224,6 +241,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="taskCategory" destination="Cgr-0v-Lyr" id="eJ9-rj-abk"/>
                         <outlet property="taskName" destination="AXG-0h-9kg" id="fAa-P2-tQT"/>
                         <outlet property="taskNote" destination="ibU-D3-YSB" id="s0f-AQ-NTt"/>
                     </connections>
