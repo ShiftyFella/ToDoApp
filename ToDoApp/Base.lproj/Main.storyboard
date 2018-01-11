@@ -44,7 +44,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="66" id="UZL-ln-QPU" customClass="TaskViewCell" customModule="ToDoApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="66"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UZL-ln-QPU" id="vQ4-1n-PRI">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="65.5"/>
@@ -109,8 +109,6 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="taskCategory" destination="ICx-v4-ZoR" id="jnL-v1-2ae"/>
-                                    <outlet property="taskDate" destination="wpl-OG-RER" id="N35-xP-KPb"/>
                                     <outlet property="taskDelBtn" destination="cIG-sN-qtq" id="mvd-uS-uQS"/>
                                     <outlet property="taskDoneCheckBox" destination="QcQ-Tx-I6D" id="Ve5-4L-nMf"/>
                                     <outlet property="taskEditBtn" destination="fhl-yL-UwS" id="Nwi-yF-xA2"/>
@@ -149,19 +147,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AXG-0h-9kg">
-                                <rect key="frame" x="16" y="107" width="343" height="30"/>
+                                <rect key="frame" x="16" y="151" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Text something..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ibU-D3-YSB">
-                                <rect key="frame" x="16" y="268" width="343" height="200"/>
+                                <rect key="frame" x="16" y="312" width="343" height="156"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFO-Gp-MtB">
-                                <rect key="frame" x="16" y="240" width="75" height="18"/>
+                                <rect key="frame" x="16" y="284" width="75" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="rPs-oJ-fQ0"/>
                                 </constraints>
@@ -170,14 +168,14 @@
                                 <color key="highlightedColor" red="0.45098039215686275" green="0.45098039215686275" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSU-W5-6Tn">
-                                <rect key="frame" x="325" y="69" width="34" height="30"/>
+                                <rect key="frame" x="325" y="113" width="34" height="30"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <segue destination="qbp-Rx-eXR" kind="unwind" unwindAction="unwindFromDetailsVC:" id="RtG-gm-j2X"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ICv-OD-uyC">
-                                <rect key="frame" x="16" y="154" width="44" height="18"/>
+                                <rect key="frame" x="16" y="198" width="44" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="X6M-Of-pyy"/>
                                 </constraints>
@@ -186,7 +184,7 @@
                                 <color key="highlightedColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNL-Gb-wc8">
-                                <rect key="frame" x="16" y="182" width="343" height="30"/>
+                                <rect key="frame" x="16" y="226" width="343" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ZW7-O0-qMj"/>
@@ -196,7 +194,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6BZ-Xb-2HX">
-                                <rect key="frame" x="16" y="79" width="116" height="18"/>
+                                <rect key="frame" x="16" y="123" width="116" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="q8T-tx-a62"/>
                                 </constraints>
@@ -241,7 +239,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="taskCategory" destination="Cgr-0v-Lyr" id="eJ9-rj-abk"/>
                         <outlet property="taskName" destination="AXG-0h-9kg" id="fAa-P2-tQT"/>
                         <outlet property="taskNote" destination="ibU-D3-YSB" id="s0f-AQ-NTt"/>
                     </connections>
